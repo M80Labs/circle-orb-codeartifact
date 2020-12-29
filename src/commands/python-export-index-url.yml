@@ -1,0 +1,26 @@
+description: >
+  This command builds and pushes the artifact
+
+parameters:
+  repository:
+    type: string
+    description: "CodeArtifact repository name"
+
+  domain:
+    type: string
+    description: "CodeArtifact domain name"
+
+  domain-owner:
+    type: string
+    description: "CodeArtifact domain owner"
+
+  envar-name:
+    type: string
+    description: "Envar name to export index url"
+
+steps:
+    - run:
+        name: pip-login
+        command: |
+          aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
+          export <<parameters.envar-name>>=$(pip config get global.index-url)
