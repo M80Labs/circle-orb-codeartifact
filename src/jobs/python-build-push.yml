@@ -19,6 +19,8 @@ executor: default
 steps:
   - checkout
 
+  - aws-cli/install
+
   - python-build-push:
       repository: <<parameters.repository>>
       domain: <<parameters.domain>>
