@@ -1,0 +1,37 @@
+description: >
+  This command builds and pushes the artifact
+
+parameters:
+  repository:
+    type: string
+    description: "CodeArtifact repository name"
+
+  domain:
+    type: string
+    description: "CodeArtifact domain name"
+
+  domain-owner:
+    type: string
+    description: "CodeArtifact domain owner"
+
+steps:
+    - run: pip install --upgrade setuptools wheel twine
+
+    - run:
+        name: build-login
+        command: |
+          aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
+    - run:
+        name: build
+        command: |
+          python setup.py sdist bdist_wheel
+
+    - run:
+        name: push-login
+        command: |
+          aws codeartifact login --tool twine --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
+
+    - run:
+        name: push
+        command: |
+          twine upload --repository codeartifact dist/*

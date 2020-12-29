@@ -1,0 +1,25 @@
+description: >
+  This command builds and pushes the artifact
+
+parameters:
+  repository:
+    type: string
+    description: "CodeArtifact repository name"
+
+  domain:
+    type: string
+    description: "CodeArtifact domain name"
+
+  domain-owner:
+    type: string
+    description: "CodeArtifact domain owner"
+
+executor: default
+
+steps:
+  - checkout
+
+  - python-build-and-push:
+      repository: <<parameters.repository>>
+      domain: <<parameters.domain>>
+      domain-owner: <<parameters.domain-owner>>
