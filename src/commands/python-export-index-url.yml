@@ -24,4 +24,4 @@ steps:
         name: pip-login
         command: |
           aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
-          export <<parameters.envar-name>>=$(pip config get global.index-url)
+          echo "export <<parameters.envar-name>>=$(pip config get global.index-url)" >> $BASH_ENV
