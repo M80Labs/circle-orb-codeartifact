@@ -19,7 +19,7 @@ executor: default
 steps:
   - checkout
 
-  - python-build-and-push:
+  - python-build-push:
       repository: <<parameters.repository>>
       domain: <<parameters.domain>>
       domain-owner: <<parameters.domain-owner>>
