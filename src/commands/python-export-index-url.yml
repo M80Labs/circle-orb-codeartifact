@@ -17,6 +17,7 @@ parameters:
   envar-name:
     type: string
     description: "Envar name to export index url"
+    default: "PIP_INDEX_URL"
 
 steps:
     - run:
