@@ -1,0 +1,34 @@
+description: >
+  This command builds and pushes the artifact
+
+parameters:
+  repository:
+    type: string
+    description: "CodeArtifact repository name"
+
+  domain:
+    type: string
+    description: "CodeArtifact domain name"
+
+  domain-owner:
+    type: string
+    description: "CodeArtifact domain owner"
+
+  path:
+    type: string
+    description: "venv path"
+    default: "venv"
+
+  requirements:
+    type: string
+    description: "requirements file path(s)"
+    default: "requirements.txt"
+
+steps:
+    - run:
+        name: venv creation and dep install
+        command: |
+          python -m venv <<parameters.path>>
+          . <<parameters.path>>/bin/activate
+          aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
+          pip install -r <<parameters.requirements>>
