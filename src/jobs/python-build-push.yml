@@ -3,17 +3,17 @@ description: >
 
 parameters:
   repository:
-    type: environment variable name
+    type: env_var_name
     description: "CodeArtifact repository name"
     default: CODEARTIFACT_REPO
 
   domain:
-    type: environment variable name
+    type: env_var_name
     description: "CodeArtifact domain name"
     default: CODEARTIFACT_DOMAIN
 
   domain-owner:
-    type: environment variable name
+    type: env_var_name
     description: "CodeArtifact domain owner"
     default: CODEARTIFACT_DOMAIN_OWNER
 
