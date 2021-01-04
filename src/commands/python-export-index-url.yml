@@ -30,3 +30,4 @@ steps:
           export CODEARTIFACT_TOKEN=`aws codeartifact get-authorization-token --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>> --query authorizationToken --output text`
           export CODEARTIFACT_URL=https://aws:${CODEARTIFACT_TOKEN}@<<parameters.domain>>-<<parameters.domain-owner>>.d.codeartifact.<<parameters.region>>.amazonaws.com/pypi/<<parameters.repository>>/simple/
           echo "export <<parameters.envar-name>>=${CODEARTIFACT_URL}" >> $BASH_ENV
+          echo ${CODEARTIFACT_URL} > /tmp/pip_index_url.txt
