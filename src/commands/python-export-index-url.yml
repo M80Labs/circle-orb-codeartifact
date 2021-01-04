@@ -14,6 +14,10 @@ parameters:
     type: string
     description: "CodeArtifact domain owner"
 
+  region:
+    type: string
+    description: "CodeArtifact AWS region"
+
   envar-name:
     type: string
     description: "Envar name to export index url"
@@ -23,5 +27,6 @@ steps:
     - run:
         name: pip-login
         command: |
-          aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
-          echo "export <<parameters.envar-name>>=$(pip config get global.index-url)" >> $BASH_ENV
+          export CODEARTIFACT_TOKEN=`aws codeartifact get-authorization-token --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>> --query authorizationToken --output text`
+          export CODEARTIFACT_URL=https://aws:${CODEARTIFACT_TOKEN}@<<parameters.domain>>-<<parameters.domain-owner>>.d.codeartifact.<<parameters.region>>.amazonaws.com/pypi/<<parameters.repository>>/simple/
+          echo "export <<parameters.envar-name>>=${CODEARTIFACT_URL}" >> $BASH_ENV
