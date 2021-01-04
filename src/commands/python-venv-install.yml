@@ -28,6 +28,7 @@ parameters:
     default: "requirements.txt"
 
 steps:
+    - aws-cli/install
     - run:
         name: venv creation and dep install
         command: |
