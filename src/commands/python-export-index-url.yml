@@ -3,20 +3,24 @@ description: >
 
 parameters:
   repository:
-    type: string
+    type: environment variable name
     description: "CodeArtifact repository name"
+    default: CODEARTIFACT_REPO
 
   domain:
-    type: string
+    type: environment variable name
     description: "CodeArtifact domain name"
+    default: CODEARTIFACT_DOMAIN
 
   domain-owner:
-    type: string
+    type: environment variable name
     description: "CodeArtifact domain owner"
+    default: CODEARTIFACT_DOMAIN_OWNER
 
   region:
-    type: string
-    description: "CodeArtifact AWS region"
+    type: environment variable name
+    description: "CodeArtifact domain owner"
+    default: CODEARTIFACT_REGION
 
   envar-name:
     type: string
@@ -27,7 +31,7 @@ steps:
     - run:
         name: pip-login
         command: |
-          export CODEARTIFACT_TOKEN=`aws codeartifact get-authorization-token --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>> --query authorizationToken --output text`
-          export CODEARTIFACT_URL=https://aws:${CODEARTIFACT_TOKEN}@<<parameters.domain>>-<<parameters.domain-owner>>.d.codeartifact.<<parameters.region>>.amazonaws.com/pypi/<<parameters.repository>>/simple/
+          export CODEARTIFACT_TOKEN=`aws codeartifact get-authorization-token --domain ${<<parameters.domain>>} --domain-owner ${<<parameters.domain-owner>>} --query authorizationToken --output text`
+          export CODEARTIFACT_URL=https://aws:${CODEARTIFACT_TOKEN}@${<<parameters.domain>>}-${<<parameters.domain-owner>>}.d.codeartifact.${<<parameters.region>>}.amazonaws.com/pypi/${<<parameters.repository>>}/simple/
           echo "export <<parameters.envar-name>>=${CODEARTIFACT_URL}" >> $BASH_ENV
           echo ${CODEARTIFACT_URL} > /tmp/pip_index_url.txt

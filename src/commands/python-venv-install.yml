@@ -3,16 +3,19 @@ description: >
 
 parameters:
   repository:
-    type: string
+    type: environment variable name
     description: "CodeArtifact repository name"
+    default: CODEARTIFACT_REPO
 
   domain:
-    type: string
+    type: environment variable name
     description: "CodeArtifact domain name"
+    default: CODEARTIFACT_DOMAIN
 
   domain-owner:
-    type: string
+    type: environment variable name
     description: "CodeArtifact domain owner"
+    default: CODEARTIFACT_DOMAIN_OWNER
 
   path:
     type: string
@@ -30,5 +33,5 @@ steps:
         command: |
           python -m venv <<parameters.path>>
           . <<parameters.path>>/bin/activate
-          aws codeartifact login --tool pip --repository <<parameters.repository>> --domain <<parameters.domain>> --domain-owner <<parameters.domain-owner>>
+          aws codeartifact login --tool pip --repository ${<<parameters.repository>>} --domain ${<<parameters.domain>>} --domain-owner ${<<parameters.domain-owner>>}
           pip install -r <<parameters.requirements>>
