@@ -18,7 +18,7 @@ parameters:
     default: CODEARTIFACT_DOMAIN_OWNER
 
 steps:
-    - run: pip install --upgrade setuptools wheel twine
+    - run: pip install --upgrade setuptools wheel twine pip
 
     - run:
         name: build-login

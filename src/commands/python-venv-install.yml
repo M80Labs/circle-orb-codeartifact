@@ -34,6 +34,6 @@ steps:
         command: |
           python -m venv <<parameters.path>>
           . <<parameters.path>>/bin/activate
-          pip install --upgrade pip
+          pip install --upgrade pip wheel
           aws codeartifact login --tool pip --repository ${<<parameters.repository>>} --domain ${<<parameters.domain>>} --domain-owner ${<<parameters.domain-owner>>}
           pip install -r <<parameters.requirements>>
