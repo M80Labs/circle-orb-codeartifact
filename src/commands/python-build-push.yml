@@ -38,4 +38,4 @@ steps:
     - run:
         name: push
         command: |
-          twine upload --repository codeartifact dist/*
+          twine upload --verbose --repository codeartifact dist/*
